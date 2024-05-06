@@ -106,3 +106,36 @@ header {
   border-radius: 50%;
   padding: 20px;
 }
+
+/*HTML LINKS*/
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.group-box {
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.group-box button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 150px;
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.group-box button:hover {
+  background-color: #555;
+}
+
