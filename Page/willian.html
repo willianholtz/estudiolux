@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem vindo André Holtz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .menu {
+            width: 200px;
+            background-color: #000;
+            padding: 20px;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu li {
+            margin-bottom: 10px;
+        }
+
+        .menu li a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu li a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto;
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .servicos-grid-header {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .servicos-grid-item {
+            color: #000;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <ul>
+                <li><a href="#" onclick="showInicio()">Início</a></li>
+                <li><a href="#" onclick="showArquivos()">Arquivos</a></li>
+                <li><a href="#" onclick="showServicos()">Serviços</a></li>
+            </ul>
+        </div>
+        <div class="content" id="content">
+            <!-- Conteúdo dinâmico será exibido aqui -->
+        </div>
+    </div>
+
+    <div class="footer">
+        Estúdio Lux, website feito por Willian Holtz, 2024
+    </div>
+
+    <script>
+        function showInicio() {
+            var content = document.getElementById("content");
+            content.innerHTML = `
+                <h2>Início</h2>
+                <img src="../logo.png" alt="Logo">
+                <p>Horário de Brasília: <span id="horario"></span></p>
+            `;
+            updateHorario();
+        }
+
+        function showArquivos() {
+            var content = document.getElementById("content");
+            content.innerHTML = `
+                <h2>Arquivos</h2>
+                <ul>
+                    <li><a href="arquivo1.pdf" download>Arquivo 1</a></li>
+                    <li><a href="arquivo2.pdf" download>Arquivo 2</a></li>
+                    <!-- Adicione mais arquivos conforme necessário -->
+                </ul>
+            `;
+        }
+
+        function showServicos() {
+            var content = document.getElementById("content");
+            content.innerHTML = `
+                <h2>Serviços</h2>
+                <p>Escolha os serviços:</p>
+                <div class="servicos-grid">
+                    <div class="servicos-grid-header">Produto/Serviço</div>
+                    <div class="servicos-grid-header">Descrição</div>
+                    <div class="servicos-grid-header">Quantidade</div>
+                    <div class="servicos-grid-header">Valor Unitário</div>
+                    <div class="servicos-grid-header">Total</div>
+                    <div class="servicos-grid-item">Item 1</div>
+                    <div class="servicos-grid-item">Descrição do Item 1</div>
+                    <div class="servicos-grid-item"><input type="number" value="1" min="1" onchange="updateTotal(this, 50)"></div>
+                    <div class="servicos-grid-item">R$ 50,00</div>
+                    <div class="servicos-grid-item" id="total-item1">R$ 50,00</div>
+                    <!-- Adicione mais itens conforme necessário -->
+                </div>
+                <p>Total: R$<span id="total">50,00</span></p>
+            `;
+        }
+
+        function updateTotal(input, valorUnitario) {
+            var quantidade = parseInt(input.value);
+            var total = quantidade * valorUnitario;
+            var totalElement = input.parentElement.nextElementSibling.nextElementSibling.nextElementSibling;
+            totalElement.textContent = "R$ " + total.toFixed(2).replace(".", ",");
+            updateTotalGeral();
+        }
+
+        function updateTotalGeral() {
+            var total = 0;
+            var totalElements = document.querySelectorAll(".servicos-grid-item:nth-child(5)");
+            totalElements.forEach(function(element) {
+                var valor = parseFloat(element.textContent.replace("R$ ", "").replace(",", "."));
+                total += valor;
+            });
+            document.getElementById("total").textContent = total.toFixed(2).replace(".", ",");
+        }
+
+        function updateHorario() {
+            var horario = new Date().toLocaleTimeString('pt-BR');
+            document.getElementById("horario").textContent = horario;
+            setTimeout(updateHorario, 1000); // Atualiza a cada segundo
+        }
+
+        // Inicialmente exibe a página de Início
+        showInicio();
+    </script>
+</body>
+</html>
