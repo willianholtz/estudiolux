@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav button {
+            color: #fff;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav button:hover {
+            background-color: #555;
+        }
+
+        main {
+            margin-top: 60px;
+            padding: 20px;
+            display: flex;
+        }
+
+        aside {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
+
+        section {
+            display: none;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-left: 20px;
+            flex-grow: 1;
+        }
+
+        .profile-pic {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .file {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .file h3 {
+            margin-top: 0;
+        }
+
+        .file p {
+            margin-bottom: 10px;
+        }
+
+        .social-media {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-media img {
+            width: 50px;
+            height: auto;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <nav>
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('sobre')">Sobre</button>
+            <button onclick="showSection('arquivos')">Arquivos</button>
+            <button onclick="showSection('midias')">Mídias Sociais</button>
+        </nav>
+    </header>
+
+    <main>
+        <aside>
+            <div class="profile-pic">
+                <img src="Images\perfilWillian.png" alt="Foto de Perfil">
+            </div>
+            <div class="profile-name">
+                <p>Olá, meu nome é Willian</p>
+            </div>
+        </aside>
+
+        <section id="home">
+            <h2>Bem-vindo à Página Inicial</h2>
+            <p>Esta é a página inicial do perfil. Aqui você encontrará informações sobre mim.</p>
+        </section>
+
+        <section id="sobre">
+            <h2>Sobre</h2>
+            <p>Trabalho com Informática há 15 anos, tenho experiência na área, e atualmente sou dono da empresa Estúdio Lux.</p>
+            <p>Trabalho com gráfica rápida e estou começando como piloto de drone, alguns de meus trabalhos você pode estar visualizando</p>
+            <p>na sessão de "Midias Sociais".</p>
+        </section>
+
+        <section id="arquivos">
+            <h2>Arquivos</h2>
+            <div class="file-grid">
+                <div class="file">
+                    <h3>Título do Arquivo 1</h3>
+                    <p>Descrição do Arquivo 1</p>
+                    <a href="arquivo1.pdf" download>Download</a>
+                </div>
+                <div class="file">
+                    <h3>Título do Arquivo 2</h3>
+                    <p>Descrição do Arquivo 2</p>
+                    <a href="arquivo2.pdf" download>Download</a>
+                </div>
+                <!-- Adicione mais arquivos conforme necessário -->
+            </div>
+        </section>
+
+        <section id="midias" class="social-media">
+            <h2>Mídias Sociais</h2>
+            <div>
+                <a href="https://www.youtube.com/" target="_blank"><img src="icones/youtube.png" alt="YouTube"></a>
+                <a href="https://www.instagram.com/" target="_blank"><img src="icones/instagram.png" alt="Instagram"></a>
+                <a href="https://www.facebook.com/" target="_blank"><img src="icones/facebook.png" alt="Facebook"></a>
+                <a href="https://www.tiktok.com/" target="_blank"><img src="icones/tiktok.png" alt="TikTok"></a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showSection(sectionId) {
+            var sections = document.getElementsByTagName('section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].style.display = 'none';
+            }
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
+
+    <script>
+        // Função para exibir a seção desejada
+        function showSection(sectionId) {
+            var sections = document.getElementsByTagName('section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].style.display = 'none';
+            }
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Exibir a seção "Home" quando a página for carregada
+        window.onload = function() {
+            showSection('home');
+        };
+    </script>
+
+</body>
+</html>
