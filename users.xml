@@ -1,0 +1,11 @@
+<users>
+  <user>
+    <username>willian</username>
+    <password>0000</password>
+  </user>
+  <user>
+    <username>André</username>
+    <password>1111</password>
+  </user>
+  <!-- Adicione mais usuários conforme necessário -->
+</users>

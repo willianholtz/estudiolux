@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        nav {
+            display: flex;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #FFA500; /* laranja */
+        }
+        main {
+            margin-top: 60px;
+            padding: 20px;
+            text-align: center;
+        }
+        .login-box {
+            width: 300px;
+            margin: 0 auto;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-box h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .login-box input[type="text"],
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-box input[type="submit"] {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-box input[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="clientes.html">Clientes</a>
+        </nav>
+    </header>
+
+   <main>
+        <div class="login-box">
+            <h2>Login</h2>
+            <form id="login-form" action="#">
+                <input type="text" id="username" name="username" placeholder="Usuário" required><br>
+                <input type="password" id="password" name="password" placeholder="Senha" required><br>
+                <input type="submit" value="Entrar">
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            // Buscar as credenciais no arquivo XML
+            checkCredentials(username, password);
+        });
+
+        function checkCredentials(username, password) {
+            // Carregar o arquivo XML
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        // Parsear o XML
+                        var xmlDoc = this.responseXML;
+                        // Buscar todos os usuários
+                        var users = xmlDoc.getElementsByTagName("user");
+                        // Verificar as credenciais
+                        var validCredentials = false;
+                        for (var i = 0; i < users.length; i++) {
+                            var xmlUsername = users[i].getElementsByTagName("username")[0].childNodes[0].nodeValue;
+                            var xmlPassword = users[i].getElementsByTagName("password")[0].childNodes[0].nodeValue;
+                            if (username === xmlUsername && password === xmlPassword) {
+                                validCredentials = true;
+                                break;
+                            }
+                        }
+                        // Redirecionar se as credenciais forem válidas
+                        if (validCredentials) {
+                            console.log("Credenciais válidas. Redirecionando...");
+                            window.location.href = "index.html"; // Redirecionar para Home se as credenciais estiverem corretas
+                        } else {
+                            console.log("Credenciais inválidas.");
+                            alert("Usuário ou senha incorretos");
+                        }
+                    } else {
+                        console.log("Erro ao carregar o arquivo XML.");
+                    }
+                }
+            };
+            xhttp.open("GET", "db.xml", true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
